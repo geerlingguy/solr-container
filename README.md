@@ -1,6 +1,6 @@
 # Apache Solr (Built with Ansible Container)
 
-[![](https://images.microbadger.com/badges/image/geerlingguy/solr.svg)](https://microbadger.com/images/geerlingguy/solr "Get your own image badge on microbadger.com")
+[![Build Status](https://travis-ci.org/geerlingguy/ac-solr.svg?branch=master)](https://travis-ci.org/geerlingguy/ac-solr) [![](https://images.microbadger.com/badges/image/geerlingguy/solr.svg)](https://microbadger.com/images/geerlingguy/solr "Get your own image badge on microbadger.com")
 
 This project is in it's extremely early stages. _There will be bugs!_
 
@@ -15,7 +15,7 @@ Before using this project to build and maintain a Solr images for Docker, you ne
 
   1. Build the Solr Docker image; run this command in the root directory:
 
-      ansible-container --debug --var-file vars.yml build
+      ansible-container --var-file vars.yml build
 
   1. Once the image is built, you can run `docker images` to see the `acsolr-solr` image that was generated.
   1. To run the image, run `ansible-container run`

@@ -1,0 +1,12 @@
+---
+language: python
+services: docker
+python:
+  - "3.5"
+
+install:
+  - pip install -r ansible-requirements.txt
+  - pip install ansible-container[docker]
+
+script:
+  - ansible-container --debug --var-file vars.yml build
