@@ -1,0 +1,31 @@
+version: "2"
+settings:
+  # The Conductor container does the heavy lifting, and provides a portable
+  # Python runtime for building your target containers. It should be derived
+  # from the same distribution as you're building your target containers with.
+  conductor_base: debian:9
+
+  # The deployment_output_path is mounted to the Conductor container, and the
+  # `run` and `deployment` commands then write generated Ansible playbooks to it.
+  # deployment_output_path: ./ansible-deployment
+
+services:
+  solr:
+    from: "debian:9"
+    ports:
+      - "8983:8983"
+    command: ["/opt/solr/bin/solr", "start", "-f", "-force"]
+    roles:
+      - setup
+      - geerlingguy.java
+      - geerlingguy.solr
+    dev_overrides:
+      environment:
+        - "DEBUG=1"
+
+# TODO: Currently doing this via CLI by hand. Would be nice to use this feature.
+registries: {}
+  # Add optional registries used for deployment. For example:
+  #  google:
+  #    url: https://gcr.io
+  #    namespace: my-cool-project-xxxxxx

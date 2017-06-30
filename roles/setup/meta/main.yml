@@ -1,0 +1,22 @@
+galaxy_info:
+  author: Jeff Geerling
+  description: A role to prepare the acsolr environment.
+  company: Midwestern Mac, LLC
+
+  license: MIT
+
+  min_ansible_version: 2.2
+  min_ansible_container_version: 0.9.1
+
+  platforms:
+  - name: Debian
+    versions:
+    - all
+
+  galaxy_tags:
+    - debian
+    - jessie
+    - stretch
+    - wheezy
+
+dependencies: []
