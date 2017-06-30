@@ -8,13 +8,6 @@ This project is in it's extremely early stages. _There will be bugs!_ You may be
 
 **Ansible Role**: If you need a flexible Ansible role that's compatible with both traditional servers and containerized builds, check out [`geerlingguy.solr`](https://galaxy.ansible.com/geerlingguy/solr/) on Ansible Galaxy. (This is the Ansible role that does the bulk of the work in managing the Apache Solr container.)
 
-## Prerequisites
-
-Before using this project to build and maintain a Solr images for Docker, you need to have the following installed:
-
-  - [Docker Community Edition](https://docs.docker.com/engine/installation/) (for Mac, Windows, or Linux)
-  - [Ansible Container](https://docs.ansible.com/ansible-container/installation.html)
-
 ## Standalone Usage
 
 If you want to use the `geerlingguy/solr` image from Docker Hub, you don't need to install or use this project at all. You can quickly build a Solr container locally with:
@@ -28,6 +21,13 @@ You can also wrap up that configuration in a `Dockerfile` and/or a `docker-compo
 TODO: Describe how to mount a volume into the container to persist core/index data and have externally-managed collection configuration.
 
 ## Management with Ansible Container
+
+### Prerequisites
+
+Before using this project to build and maintain a Solr images for Docker, you need to have the following installed:
+
+  - [Docker Community Edition](https://docs.docker.com/engine/installation/) (for Mac, Windows, or Linux)
+  - [Ansible Container](https://docs.ansible.com/ansible-container/installation.html)
 
 ### Build the image
 
