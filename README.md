@@ -35,7 +35,7 @@ Before using this project to build and maintain a Solr images for Docker, you ne
 
   1. Build the Solr Docker image; run this command in the root directory:
 
-        ansible-container --var-file vars.yml build
+         ansible-container --var-file vars.yml build
 
   1. Once the image is built, you can run `docker images` to see the `acsolr-solr` image that was generated.
 
@@ -53,20 +53,20 @@ Currently, the process for updating this image on Docker Hub is manual. Eventual
 
   1. Log into Docker Hub on the command line:
 
-        docker login --username=geerlingguy
+         docker login --username=geerlingguy
 
   1. Tag the latest version:
 
-        docker tag [image id] geerlingguy/solr:latest
+         docker tag [image id] geerlingguy/solr:latest
 
   1. Tag the Solr major version:
 
-        docker tag [image id] geerlingguy/solr:6.x # or 5.x, 4.x...
+         docker tag [image id] geerlingguy/solr:6.x # or 5.x, 4.x...
 
   1. Push tags to Docker Hub:
 
-        docker push geerlingguy/solr:latest
-        docker push geerlingguy/solr:6.x # or 5.x, 4.x...
+         docker push geerlingguy/solr:latest
+         docker push geerlingguy/solr:6.x # or 5.x, 4.x...
 
 
 ## License
