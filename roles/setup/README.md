@@ -1,3 +1,3 @@
-# `acsolr.setup` Ansible Role
+# `setup` Ansible Role
 
 TODO.

@@ -23,9 +23,8 @@ services:
       environment:
         - "DEBUG=1"
 
-# TODO: Currently doing this via CLI by hand. Would be nice to use this feature.
-registries: {}
-  # Add optional registries used for deployment. For example:
-  #  google:
-  #    url: https://gcr.io
-  #    namespace: my-cool-project-xxxxxx
+registries:
+  docker:
+    url: https://docker.io
+    namespace: geerlingguy
+    repository_prefix: ''

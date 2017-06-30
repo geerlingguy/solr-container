@@ -4,9 +4,11 @@
 
 This project is in it's extremely early stages. _There will be bugs!_ You may be better served using the [official Solr Docker image](https://hub.docker.com/_/solr/) if it meets your requirements.
 
-**Docker Hub Image**: If you just want to use [the `geerlingguy/solr` Docker image](https://hub.docker.com/r/geerlingguy/solr/) in your project, you can pull it from Docker Hub.
+This project is composed of three main parts:
 
-**Ansible Role**: If you need a flexible Ansible role that's compatible with both traditional servers and containerized builds, check out [`geerlingguy.solr`](https://galaxy.ansible.com/geerlingguy/solr/) on Ansible Galaxy. (This is the Ansible role that does the bulk of the work in managing the Apache Solr container.)
+  - **Ansible Container project**: This project is maintained on GitHub: [geerlingguy/ac-solr](https://hub.docker.com/r/geerlingguy/solr/). Please file issues, support requests, etc. against this GitHub repository.
+  - **Docker Hub Image**: If you just want to use [the `geerlingguy/solr` Docker image](https://hub.docker.com/r/geerlingguy/solr/) in your project, you can pull it from Docker Hub.
+  - **Ansible Role**: If you need a flexible Ansible role that's compatible with both traditional servers and containerized builds, check out [`geerlingguy.solr`](https://galaxy.ansible.com/geerlingguy/solr/) on Ansible Galaxy. (This is the Ansible role that does the bulk of the work in managing the Apache Solr container.)
 
 ## Standalone Usage
 
@@ -40,6 +42,8 @@ Before using this project to build and maintain a Solr images for Docker, you ne
 ### Run the image as a container
 
     ansible-container run
+
+You should be able to reach the Solr dashboard by accessing [http://localhost:8983/](http://localhost:8983/) in your browser.
 
 (Use `stop` to stop the container, and `destroy` to reset the containers and _all_ images.)
 

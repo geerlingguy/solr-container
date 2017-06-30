@@ -1,6 +1,6 @@
 galaxy_info:
   author: Jeff Geerling
-  description: A role to prepare the acsolr environment.
+  description: A role to prepare the solr environment.
   company: Midwestern Mac, LLC
 
   license: MIT
