@@ -8,8 +8,17 @@ python:
   # - "3.5"
 
 install:
+  # Install requirements.
   - pip install -r ansible-requirements.txt
-  - pip install ansible-container[docker]
+
+  # Install ansible-container.
+  - git clone https://github.com/ansible/ansible-container.git
+  - cd ansible-container
+  - pip install -e .[docker]
+  # (Source build required until 0.9.2 is released.)
+  # - pip install ansible-container[docker]
 
 script:
-  - ansible-container --debug --var-file vars.yml build
+  - ansible-container --debug --var-file vars-6.x.yml build
+  # - ansible-container --debug --var-file vars-5.x.yml build
+  # - ansible-container --debug --var-file vars-4.x.yml build
