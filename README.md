@@ -90,9 +90,7 @@ Older Solr versions are also supported—specify the vars file for the version y
 
 ### Run the image as a container
 
-    ansible-container --var_file vars-6.x.yml run
-
-**Note**: The `--var_file` option currently seems to not work with `run`, so you may need to just use `run` alone and paste any relevant variables into the `container.yml` file, at least until [this issue](https://github.com/ansible/ansible-container/issues/643) is resolved.
+    ansible-container --var-file vars-6.x.yml run
 
 You should be able to reach the Solr dashboard by accessing [http://localhost:8983/](http://localhost:8983/) in your browser.
 
