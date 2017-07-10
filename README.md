@@ -28,6 +28,7 @@ If you want to use the `geerlingguy/solr` image from Docker Hub, you don't need 
 
 You can also wrap up that configuration in a `Dockerfile` and/or a `docker-compose.yml` file if you want to keep things simple. For example:
 
+    ```
     version: "3"
     
     services:
@@ -37,7 +38,7 @@ You can also wrap up that configuration in a `Dockerfile` and/or a `docker-compo
         ports:
           - "8983:8983"
         restart: always
-        # See 'Custom and Persisten Solr cores' for instructions for volumes.
+        # See 'Custom and Persistent Solr cores' for instructions for volumes.
         volumes: []
         command: ["/opt/solr/bin/solr", "start", "-p", "8983", "-s", "/var/solr", "-f", "-force"]
 
