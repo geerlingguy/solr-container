@@ -10,17 +10,63 @@ This project is composed of three main parts:
   - **Docker Hub Image**: If you just want to use [the `geerlingguy/solr` Docker image](https://hub.docker.com/r/geerlingguy/solr/) in your project, you can pull it from Docker Hub.
   - **Ansible Role**: If you need a flexible Ansible role that's compatible with both traditional servers and containerized builds, check out [`geerlingguy.solr`](https://galaxy.ansible.com/geerlingguy/solr/) on Ansible Galaxy. (This is the Ansible role that does the bulk of the work in managing the Apache Solr container.)
 
+## Versions
+
+Currently maintained versions include:
+
+  - `6.x`, `6.6.0`, `latest`: Apache Solr 6.x
+  - `5.x`, `5.5.4`: Apache Solr 5.x
+  - `4.x`, `4.10.4`: Apache Solr 4.x
+
 ## Standalone Usage
 
 If you want to use the `geerlingguy/solr` image from Docker Hub, you don't need to install or use this project at all. You can quickly build a Solr container locally with:
 
-    docker run -d --name=solr -p 8983:8983 geerlingguy/solr:latest /opt/solr/bin/solr start -f -force
+    docker run -d --name=solr -p 8983:8983 geerlingguy/solr:latest /opt/solr/bin/solr start -p 8983 -s /var/solr -f -force
 
-You can also wrap up that configuration in a `Dockerfile` and/or a `docker-compose.yml` file if you want to keep things simple.
+(For Solr 4.x, drop the final `-force` argument.)
 
-### Persistent Solr cores
+You can also wrap up that configuration in a `Dockerfile` and/or a `docker-compose.yml` file if you want to keep things simple. For example:
 
-TODO: Describe how to mount a volume into the container to persist core/index data and have externally-managed collection configuration.
+    version: "3"
+    
+    services:
+      solr:
+        image: geerlingguy/solr:latest
+        container_name: solr
+        ports:
+          - "8983:8983"
+        restart: always
+        # See 'Custom and Persisten Solr cores' for instructions for volumes.
+        volumes: []
+        command: ["/opt/solr/bin/solr", "start", "-p", "8983", "-s", "/var/solr", "-f", "-force"]
+
+Then run:
+
+    docker-compose up -d
+
+Now you should be able to access the Solr admin dashboard at `http://localhost:8983/`.
+
+### Custom and Persistent Solr cores
+
+The default installation includes a `collection1` core in the `SOLR_HOME` directory, `/var/solr`.
+
+Apache Solr will autodiscover any Solr cores in `SOLR_HOME` by searching for `core.properties` files inside each subdirectory. A standard convention for a single Solr core is to to mount a host directory as a volume with the core directory, containing the core's `conf`, `data`, and `core.properties` files.
+
+As an example, if you have a solr core directory named `mysearch` (with a `mysearch/core.properties` file inside), mount it as a volume like `-v ./mysearch:/var/solr/mysearch:rw`. If you have multiple solr cores (all defined inside a `cores` directory), mount them inside a `cores` directory like `-v ./cores:/var/solr/cores`.
+
+Or, if using a Docker Compose file:
+
+    services:
+      solr:
+        ...
+        volumes:
+          # If you have one core:
+          - ./mysearch:/var/solr/mysearch:rw
+          # If you have multiple cores:
+          - ./cores:/var/solr/cores:rw
+
+You can also mount volumes from a data container or elsewhere; the key is you will be able to both provide custom Solr configuration (`schema.xml`, `solrconfig.xml`, etc.), and also have a persistent `data` directory that lives outside the container.
 
 ## Management with Ansible Container
 
