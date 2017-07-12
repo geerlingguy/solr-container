@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/geerlingguy/ac-solr.svg?branch=master)](https://travis-ci.org/geerlingguy/ac-solr) [![](https://images.microbadger.com/badges/image/geerlingguy/solr.svg)](https://microbadger.com/images/geerlingguy/solr "Get your own image badge on microbadger.com")
 
-This project is in it's extremely early stages. _There will be bugs!_ You may be better served using the [official Solr Docker image](https://hub.docker.com/_/solr/) if it meets your requirements.
+This project is in it's early stages. _There will be bugs!_ You may be better served using the [official Solr Docker image](https://hub.docker.com/_/solr/) if it meets your requirements.
 
 This project is composed of three main parts:
 
@@ -80,13 +80,11 @@ Before using this project to build and maintain a Solr images for Docker, you ne
 
 ### Build the image
 
-  1. Build the Solr Docker image; run this command in the root directory:
+    ansible-container --var-file vars-6.x.yml build
 
-         ansible-container --var-file vars-6.x.yml build
+Once the image is built, you can run `docker images` to see the `acsolr-solr` image that was generated.
 
-  1. Once the image is built, you can run `docker images` to see the `acsolr-solr` image that was generated.
-
-Older Solr versions are also supported—specify the vars file for the version you would like to install to switch to that version of Solr. (**Note**: Until 0.9.2+ is released, you must [install and use Ansible Container from source](https://docs.ansible.com/ansible-container/installation.html#running-from-source) due to [this PR only being in devel so far](https://github.com/ansible/ansible-container/pull/609).)
+Older Solr versions are also supported—specify the vars file for the version you would like to install to switch to that version of Solr. (**Note**: Until 0.9.2+ is released, you must [install and use Ansible Container from source](https://docs.ansible.com/ansible-container/installation.html#running-from-source) which includes [this PR](https://github.com/ansible/ansible-container/pull/609).)
 
 ### Run the image as a container
 
@@ -118,7 +116,6 @@ Currently, the process for updating this image on Docker Hub is manual. Eventual
          docker push geerlingguy/solr:latest # (if this was just tagged)
          docker push geerlingguy/solr:6.x # or 5.x, 4.x...
          docker push geerlingguy/solr:6.6.0 # the specific version
-
 
 ## License
 
