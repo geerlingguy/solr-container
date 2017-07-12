@@ -23,3 +23,6 @@ script:
   - ansible-container --debug --var-file vars-6.x.yml build
   # - ansible-container --debug --var-file vars-5.x.yml build
   # - ansible-container --debug --var-file vars-4.x.yml build
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
