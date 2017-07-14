@@ -17,6 +17,7 @@ Currently maintained versions include:
   - `6.x`, `6.6.0`, `latest`: Apache Solr 6.x
   - `5.x`, `5.5.4`: Apache Solr 5.x
   - `4.x`, `4.10.4`: Apache Solr 4.x
+  - `3.x`, `3.6.2`: Apache Solr 3.x
 
 ## Standalone Usage
 
@@ -54,7 +55,14 @@ The default installation includes a `collection1` core in the `SOLR_HOME` direct
 
 Apache Solr will autodiscover any Solr cores in `SOLR_HOME` by searching for `core.properties` files inside each subdirectory. A standard convention for a single Solr core is to to mount a host directory as a volume with the core directory, containing the core's `conf`, `data`, and `core.properties` files.
 
-As an example, if you have a solr core directory named `mysearch` (with a `mysearch/core.properties` file inside), mount it as a volume like `-v ./mysearch:/var/solr/mysearch:rw`. If you have multiple solr cores (all defined inside a `cores` directory), mount them inside a `cores` directory like `-v ./cores:/var/solr/cores`.
+Here's an example minimal `core.properties` file, for a core named `mysearch`:
+
+    name=mysearch
+    config=solrconfig.xml
+    schema=schema.xml
+    dataDir=data
+
+So, if you have a solr core directory named `mysearch` (with a `mysearch/core.properties` file inside, and a `conf` and `data` directory for storing Solr configuration and index data, respectively), mount it as a volume like `-v ./mysearch:/var/solr/mysearch:rw`. If you have multiple solr cores (all defined inside a `cores` directory), mount them inside a `cores` directory like `-v ./cores:/var/solr/cores`.
 
 Or, if using a Docker Compose file:
 
@@ -68,6 +76,14 @@ Or, if using a Docker Compose file:
           - ./cores:/var/solr/cores:rw
 
 You can also mount volumes from a data container or elsewhere; the key is you will be able to both provide custom Solr configuration (`schema.xml`, `solrconfig.xml`, etc.), and also have a persistent `data` directory that lives outside the container.
+
+### Apache Solr 3.x
+
+There are a number of differences to keep in mind if using Apache Solr 3.x:
+
+  - Apache Solr 3.x doesn't support `core.properties` or core autodiscovery, so if you want to use a custom Solr core configuration, you should mount a volume into `/opt/solr/example/solr` with your Solr core configuration.
+  - At this time, multicore isn't officially supported under 3.x in this Docker container.
+  - Apache Solr 3.x doesn't run in the foreground in the same way as 4+. You have to use the `command` `java -jar start.jar` inside the directory `/opt/solr/example` to start Solr in the foreground.
 
 ## Management with Ansible Container
 
@@ -108,13 +124,13 @@ Currently, the process for updating this image on Docker Hub is manual. Eventual
 
   1. Tag the Solr major version:
 
-         docker tag [image id] geerlingguy/solr:6.x # or 5.x, 4.x...
+         docker tag [image id] geerlingguy/solr:6.x # or 5.x, 4.x, 3.x...
          docker tag [image id] geerlingguy/solr:6.6.0 # the specific version
 
   1. Push tags to Docker Hub:
 
          docker push geerlingguy/solr:latest # (if this was just tagged)
-         docker push geerlingguy/solr:6.x # or 5.x, 4.x...
+         docker push geerlingguy/solr:6.x # or 5.x, 4.x, 3.x...
          docker push geerlingguy/solr:6.6.0 # the specific version
 
 ## License
