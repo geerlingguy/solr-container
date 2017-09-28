@@ -100,7 +100,7 @@ Before using this project to build and maintain a Solr images for Docker, you ne
 
 Once the image is built, you can run `docker images` to see the `acsolr-solr` image that was generated.
 
-Older Solr versions are also supported—specify the vars file for the version you would like to install to switch to that version of Solr. (**Note**: Until 0.9.2+ is released, you must [install and use Ansible Container from source](https://docs.ansible.com/ansible-container/installation.html#running-from-source) which includes [this PR](https://github.com/ansible/ansible-container/pull/609).)
+Older Solr versions are also supported—specify the vars file for the version you would like to install to switch to that version of Solr.
 
 ### Run the image as a container
 
