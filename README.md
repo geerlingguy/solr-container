@@ -81,7 +81,7 @@ You can also mount volumes from a data container or elsewhere; the key is you wi
 
 There are a number of differences to keep in mind if using Apache Solr 3.x:
 
-  - Apache Solr 3.x doesn't support `core.properties` or core autodiscovery, so if you want to use a custom Solr core configuration, you should mount a volume into `/opt/solr/example/solr` with your Solr core configuration.
+  - Apache Solr 3.x doesn't support `core.properties` or core autodiscovery, so if you want to use a custom Solr core configuration, you should mount a volume into `/opt/solr/example/solr` with your Solr core configuration (`conf` and `data` dirs, at minimum).
   - At this time, multicore isn't officially supported under 3.x in this Docker container.
   - Apache Solr 3.x doesn't run in the foreground in the same way as 4+. You have to use the `command` `java -jar start.jar` inside the directory `/opt/solr/example` to start Solr in the foreground.
 
