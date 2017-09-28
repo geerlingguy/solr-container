@@ -1,0 +1,33 @@
+---
+- name: Download Solr.
+  get_url:
+    # Apache's https mirror throws an SNI error on our conductor.
+    url: "http://archive.apache.org/dist/lucene/solr/{{ solr_version }}/solr-{{ solr_version }}.tgz"
+    dest: "/root/solr-{{ solr_version }}.tgz"
+    force: no
+  register: solr_download_status
+
+- name: Expand Solr.
+  unarchive:
+    src: "/root/solr-{{ solr_version }}.tgz"
+    dest: "/root"
+    copy: no
+  when: solr_download_status.changed
+
+- name: Remove part of the installer script that doesn't works inside Docker.
+  blockinfile:
+    path: /root/solr-{{ solr_version }}/bin/install_solr_service.sh
+    block: |
+      if [ -f "/proc/version" ]; then
+        proc_version=`cat /proc/version`
+      else
+        proc_version=`uname -a`
+      fi
+    state: absent
+
+- name: Manually set proc_version so the installer script works inside Docker.
+  lineinfile:
+    path: /root/solr-{{ solr_version }}/bin/install_solr_service.sh
+    regexp: '^proc_version'
+    insertbefore: '^if.*proc_version.*Debian.*then$'
+    line: 'proc_version="Debian"'

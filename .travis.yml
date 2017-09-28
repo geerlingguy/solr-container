@@ -29,9 +29,10 @@ install:
     fi
 
 script:
-  - ansible-container --debug --var-file vars-6.x.yml build
-  # - ansible-container --debug --var-file vars-5.x.yml build
-  # - ansible-container --debug --var-file vars-4.x.yml build
+  - ansible-container --var-file vars-6.x.yml build --no-container-cache
+  - ansible-container --var-file vars-5.x.yml build --no-container-cache
+  - ansible-container --var-file vars-4.x.yml build --no-container-cache
+  - ansible-container --var-file vars-3.x.yml build --no-container-cache
 
 notifications:
   webhooks: https://galaxy.ansible.com/api/v1/notifications/

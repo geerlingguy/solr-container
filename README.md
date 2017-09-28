@@ -14,7 +14,7 @@ This project is composed of three main parts:
 
 Currently maintained versions include:
 
-  - `6.x`, `6.6.0`, `latest`: Apache Solr 6.x
+  - `6.x`, `6.6.1`, `latest`: Apache Solr 6.x
   - `5.x`, `5.5.4`: Apache Solr 5.x
   - `4.x`, `4.10.4`: Apache Solr 4.x
   - `3.x`, `3.6.2`: Apache Solr 3.x
@@ -125,13 +125,13 @@ Currently, the process for updating this image on Docker Hub is manual. Eventual
   1. Tag the Solr major version:
 
          docker tag [image id] geerlingguy/solr:6.x # or 5.x, 4.x, 3.x...
-         docker tag [image id] geerlingguy/solr:6.6.0 # the specific version
+         docker tag [image id] geerlingguy/solr:6.6.1 # the specific version
 
   1. Push tags to Docker Hub:
 
          docker push geerlingguy/solr:latest # (if this was just tagged)
          docker push geerlingguy/solr:6.x # or 5.x, 4.x, 3.x...
-         docker push geerlingguy/solr:6.6.0 # the specific version
+         docker push geerlingguy/solr:6.6.1 # the specific version
 
 ## License
 

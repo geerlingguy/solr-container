@@ -4,3 +4,8 @@
 
 - name: Ensure ps is installed.
   apt: name=procps state=present
+
+- include: install-5-prep.yml
+  when:
+    - solr_version | version_compare('6.0.0', '<')
+    - solr_version | version_compare('4.99.99', '>')
