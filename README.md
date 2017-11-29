@@ -131,7 +131,7 @@ Currently, the process for updating this image on Docker Hub is manual. Eventual
   1. Push tags to Docker Hub:
 
          docker push geerlingguy/solr:latest # (if this was just tagged)
-         docker push geerlingguy/solr:7.x # or 7.x, 5.x, 4.x, 3.x...
+         docker push geerlingguy/solr:7.x # or 6.x, 5.x, 4.x, 3.x...
          docker push geerlingguy/solr:7.1.0 # the specific version
 
 ## License
