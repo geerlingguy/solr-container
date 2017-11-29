@@ -14,7 +14,8 @@ This project is composed of three main parts:
 
 Currently maintained versions include:
 
-  - `6.x`, `6.6.2`, `latest`: Apache Solr 6.x
+  - `7.x`, `7.1.0`, `latest`: Apache Solr 7.x
+  - `6.x`, `6.6.2`: Apache Solr 6.x
   - `5.x`, `5.5.5`: Apache Solr 5.x
   - `4.x`, `4.10.4`: Apache Solr 4.x
   - `3.x`, `3.6.2`: Apache Solr 3.x
@@ -96,7 +97,7 @@ Before using this project to build and maintain a Solr images for Docker, you ne
 
 ### Build the image
 
-    ansible-container --var-file vars-6.x.yml build
+    ansible-container --var-file vars-7.x.yml build
 
 Once the image is built, you can run `docker images` to see the `acsolr-solr` image that was generated.
 
@@ -104,7 +105,7 @@ Older Solr versions are also supported—specify the vars file for the version y
 
 ### Run the image as a container
 
-    ansible-container --var-file vars-6.x.yml run
+    ansible-container --var-file vars-7.x.yml run
 
 You should be able to reach the Solr dashboard by accessing [http://localhost:8983/](http://localhost:8983/) in your browser.
 
@@ -124,14 +125,14 @@ Currently, the process for updating this image on Docker Hub is manual. Eventual
 
   1. Tag the Solr major version:
 
-         docker tag [image id] geerlingguy/solr:6.x # or 5.x, 4.x, 3.x...
-         docker tag [image id] geerlingguy/solr:6.6.2 # the specific version
+         docker tag [image id] geerlingguy/solr:7.x # or 6.x, 5.x, 4.x, 3.x...
+         docker tag [image id] geerlingguy/solr:7.1.0 # the specific version
 
   1. Push tags to Docker Hub:
 
          docker push geerlingguy/solr:latest # (if this was just tagged)
-         docker push geerlingguy/solr:6.x # or 5.x, 4.x, 3.x...
-         docker push geerlingguy/solr:6.6.2 # the specific version
+         docker push geerlingguy/solr:7.x # or 7.x, 5.x, 4.x, 3.x...
+         docker push geerlingguy/solr:7.1.0 # the specific version
 
 ## License
 

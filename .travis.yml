@@ -29,6 +29,7 @@ install:
     fi
 
 script:
+  - ansible-container --var-file vars-7.x.yml build --no-container-cache
   - ansible-container --var-file vars-6.x.yml build --no-container-cache
   - ansible-container --var-file vars-5.x.yml build --no-container-cache
   - ansible-container --var-file vars-4.x.yml build --no-container-cache
