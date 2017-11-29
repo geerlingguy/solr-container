@@ -1,0 +1,10 @@
+---
+java_packages:
+  - openjdk-8-jdk
+
+solr_remove_cruft: true
+
+solr_version: "7.1.0"
+
+container_working_dir: /
+container_start_command: ["/opt/solr/bin/solr", "start", "-f", "-force"]
