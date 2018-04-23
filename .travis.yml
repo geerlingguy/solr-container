@@ -25,6 +25,9 @@ install:
   # Install latest stable release of ansible-container from pip.
   - |
     if [ "${install_method}" == "pip" ]; then
+      # See: https://github.com/ansible/ansible-container/pull/870 (at least
+      # until Ansible Container 0.9.3+ is released.
+      pip install docker==2.7.0
       pip install ansible-container[docker]
     fi
 
