@@ -10,6 +10,10 @@ env:
   - install_method=source
   - install_method=pip
 
+matrix:
+  allow_failures:
+    - env: install_method=pip
+
 install:
   # Install requirements.
   - pip install -r ansible-requirements.txt
