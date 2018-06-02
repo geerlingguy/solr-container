@@ -2,8 +2,6 @@
 
 [![Build Status](https://travis-ci.org/geerlingguy/solr-container.svg?branch=master)](https://travis-ci.org/geerlingguy/solr-container) [![](https://images.microbadger.com/badges/image/geerlingguy/solr.svg)](https://microbadger.com/images/geerlingguy/solr "Get your own image badge on microbadger.com")
 
-This project is in it's early stages. _There will be bugs!_ You may be better served using the [official Solr Docker image](https://hub.docker.com/_/solr/) if it meets your requirements.
-
 This project is composed of three main parts:
 
   - **Ansible Container project**: This project is maintained on GitHub: [geerlingguy/solr-container](https://github.com/geerlingguy/solr-container). Please file issues, support requests, etc. against this GitHub repository.
