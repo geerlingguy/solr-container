@@ -61,7 +61,26 @@ Here's an example minimal `core.properties` file, for a core named `mysearch`:
     schema=schema.xml
     dataDir=data
 
-So, if you have a solr core directory named `mysearch` (with a `mysearch/core.properties` file inside, and a `conf` and `data` directory for storing Solr configuration and index data, respectively), mount it as a volume like `-v ./mysearch:/var/solr/mysearch:rw`. If you have multiple solr cores (all defined inside a `cores` directory), mount them inside a `cores` directory like `-v ./cores:/var/solr/cores`.
+So, if you have a solr core directory named `mysearch` (with a `mysearch/core.properties` file inside, and a `conf` and `data` directory for storing Solr configuration and index data, respectively), which looks like this:
+    
+    mysearch_conf/
+    ├── conf
+    │   ├── elevate.xml
+    │   ├── mapping-ISOLatin1Accent.txt
+    │   ├── protwords.txt
+    │   ├── _rest_managed.json
+    │   ├── schema_extra_fields.xml
+    │   ├── schema_extra_types.xml
+    │   ├── schema.xml
+    │   ├── solrconfig_extra.xml
+    │   ├── solrconfig.xml
+    │   ├── solrcore.properties
+    │   ├── stopwords.txt
+    │   └── synonyms.txt
+    ├── core.properties
+    └── data 
+ 
+Mount it as a volume like `-v ./mysearch:/var/solr/mysearch:rw`. If you have multiple solr cores (all defined inside a `cores` directory), mount them inside a `cores` directory like `-v ./cores:/var/solr/cores`.
 
 Or, if using a Docker Compose file:
 
