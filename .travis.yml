@@ -36,7 +36,8 @@ script:
     || (echo 'solr is running: fail' && exit 1)
 
 after_success:
-  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+  - |
+    if [[ "$TRAVIS_BRANCH" == "master" ]]; then
       # Log into Docker Hub.
       echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 
