@@ -2,45 +2,35 @@
 language: python
 services: docker
 
-python:
-  - "2.7"
-  - "3.6"
-
 env:
-  - install_method=source
-  - install_method=pip
-
-matrix:
-  allow_failures:
-    - env: install_method=pip
+  - solr_version: 7.x
+    solr_process: solr
+  - solr_version: 6.x
+    solr_process: solr
+  - solr_version: 5.x
+    solr_process: solr
+  - solr_version: 4.x
+    solr_process: solr
+  - solr_version: 3.x
+    solr_process: start.jar
 
 install:
-  # Install requirements.
-  - pip install -r ansible-requirements.txt
+  # Install Ansible.
+  - pip install ansible docker shyaml
 
-  # Install latest HEAD of ansible-container from source.
-  - |
-    if [ "${install_method}" == "source" ]; then
-      git clone https://github.com/ansible/ansible-container.git
-      cd ansible-container
-      pip install -e .[docker]
-      cd ..
-    fi
-  # Install latest stable release of ansible-container from pip.
-  - |
-    if [ "${install_method}" == "pip" ]; then
-      # See: https://github.com/ansible/ansible-container/pull/870 (at least
-      # until Ansible Container 0.9.3+ is released.
-      pip install docker==2.7.0
-      pip install ansible-container[docker]
-    fi
+  # Install role dependencies.
+  - ansible-galaxy install -r requirements.yml
 
 script:
-  - ansible-container --var-file vars-7.x.yml build --no-container-cache
-  - ansible-container --var-file vars-6.x.yml build --no-container-cache
-  - ansible-container --var-file vars-5.x.yml build --no-container-cache
-  - ansible-container --var-file vars-4.x.yml build --no-container-cache
-  - ansible-container --var-file vars-3.x.yml build --no-container-cache
+  # Build the container.
+  - ansible-playbook --extra-vars="@vars/${solr_version}.yml" main.yml
 
-notifications:
-  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+  # Get the specific version installed.
+  - export exact_version=$(cat vars/${solr_version}.yml | shyaml get-value solr_version)
+
+  # Verify the container runs Solr runs inside.
+  - docker run -d --name=solr -p 8983:8983 geerlingguy/solr:${exact_version}
+  - >
+    docker exec solr ps -ax | grep -q "${solr_process}"
+    && (echo 'solr is running: pass' && exit 0)
+    || (echo 'solr is running: fail' && exit 1)
