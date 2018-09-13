@@ -34,3 +34,22 @@ script:
     docker exec solr ps -ax | grep -q "${solr_process}"
     && (echo 'solr is running: pass' && exit 0)
     || (echo 'solr is running: fail' && exit 1)
+
+after_success:
+  - if [[ "$TRAVIS_BRANCH" == "master" ]]; then
+      # Log into Docker Hub.
+      echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+
+      # Push $solr_version tag.
+      docker push geerlingguy/solr:${exact_version}
+
+      # Push $solr_version tag.
+      docker tag geerlingguy/solr:${exact_version} geerlingguy/solr:${solr_version}
+      docker push geerlingguy/solr:${solr_version}
+
+      # Push latest tag if building latest version.
+      if [[ "$solr_version" == "7.x" ]]; then
+        docker tag geerlingguy/solr:${exact_version} geerlingguy/solr:latest
+        docker push geerlingguy/solr:latest
+      fi
+    fi
