@@ -3,11 +3,16 @@ language: python
 services: docker
 
 env:
-  - solr_version: '7.x'
-  - solr_version: '6.x'
-  - solr_version: '5.x'
-  - solr_version: '4.x'
-  - solr_version: '3.x'
+  - solr_version: 7.x
+    solr_process: solr
+  - solr_version: 6.x
+    solr_process: solr
+  - solr_version: 5.x
+    solr_process: solr
+  - solr_version: 4.x
+    solr_process: solr
+  - solr_version: 3.x
+    solr_process: start.jar
 
 install:
   # Install Ansible.
@@ -24,8 +29,8 @@ script:
   - export exact_version=$(cat vars/${solr_version}.yml | shyaml get-value solr_version)
 
   # Verify the container runs Solr runs inside.
-  - docker run -d --name=solr -p 8080:80 geerlingguy/solr:${exact_version}
+  - docker run -d --name=solr -p 8983:8983 geerlingguy/solr:${exact_version}
   - >
-    docker exec solr ps -ax | grep -q 'solr'
+    docker exec solr ps -ax | grep -q '${ solr_process }'
     && (echo 'solr is running: pass' && exit 0)
     || (echo 'solr is running: fail' && exit 1)

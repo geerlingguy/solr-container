@@ -12,7 +12,7 @@
     src: "/root/solr-{{ solr_version }}.tgz"
     dest: "/root"
     copy: no
-  when: solr_download_status.changed
+  when: solr_download_status is changed
 
 - name: Remove part of the installer script that doesn't works inside Docker.
   blockinfile:

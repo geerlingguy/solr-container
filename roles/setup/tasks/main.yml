@@ -7,5 +7,5 @@
 
 - include: install-5-prep.yml
   when:
-    - solr_version | version_compare('6.0.0', '<')
-    - solr_version | version_compare('4.99.99', '>')
+    - solr_version is version_compare('6.0.0', '<')
+    - solr_version is version_compare('4.99.99', '>')
