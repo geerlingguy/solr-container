@@ -1,10 +1,10 @@
-# Apache Solr (Built with Ansible Container)
+# Apache Solr Container (Built with Ansible)
 
 [![Build Status](https://travis-ci.org/geerlingguy/solr-container.svg?branch=master)](https://travis-ci.org/geerlingguy/solr-container) [![](https://images.microbadger.com/badges/image/geerlingguy/solr.svg)](https://microbadger.com/images/geerlingguy/solr "Get your own image badge on microbadger.com")
 
 This project is composed of three main parts:
 
-  - **Ansible Container project**: This project is maintained on GitHub: [geerlingguy/solr-container](https://github.com/geerlingguy/solr-container). Please file issues, support requests, etc. against this GitHub repository.
+  - **Ansible project**: This project is maintained on GitHub: [geerlingguy/solr-container](https://github.com/geerlingguy/solr-container). Please file issues, support requests, etc. against this GitHub repository.
   - **Docker Hub Image**: If you just want to use [the `geerlingguy/solr` Docker image](https://hub.docker.com/r/geerlingguy/solr/) in your project, you can pull it from Docker Hub.
   - **Ansible Role**: If you need a flexible Ansible role that's compatible with both traditional servers and containerized builds, check out [`geerlingguy.solr`](https://galaxy.ansible.com/geerlingguy/solr/) on Ansible Galaxy. (This is the Ansible role that does the bulk of the work in managing the Apache Solr container.)
 
@@ -12,8 +12,8 @@ This project is composed of three main parts:
 
 Currently maintained versions include:
 
-  - `7.x`, `7.1.0`, `latest`: Apache Solr 7.x
-  - `6.x`, `6.6.2`: Apache Solr 6.x
+  - `7.x`, `7.4.0`, `latest`: Apache Solr 7.x
+  - `6.x`, `6.6.5`: Apache Solr 6.x
   - `5.x`, `5.5.5`: Apache Solr 5.x
   - `4.x`, `4.10.4`: Apache Solr 4.x
   - `3.x`, `3.6.2`: Apache Solr 3.x
@@ -62,7 +62,7 @@ Here's an example minimal `core.properties` file, for a core named `mysearch`:
     dataDir=data
 
 So, if you have a solr core directory named `mysearch` (with a `mysearch/core.properties` file inside, and a `conf` and `data` directory for storing Solr configuration and index data, respectively), which looks like this:
-    
+
     mysearch_conf/
     ├── conf
     │   ├── elevate.xml
@@ -78,8 +78,8 @@ So, if you have a solr core directory named `mysearch` (with a `mysearch/core.pr
     │   ├── stopwords.txt
     │   └── synonyms.txt
     ├── core.properties
-    └── data 
- 
+    └── data
+
 Mount it as a volume like `-v ./mysearch:/var/solr/mysearch:rw`. If you have multiple solr cores (all defined inside a `cores` directory), mount them inside a `cores` directory like `-v ./cores:/var/solr/cores`.
 
 Or, if using a Docker Compose file:
@@ -103,30 +103,28 @@ There are a number of differences to keep in mind if using Apache Solr 3.x:
   - At this time, multicore isn't officially supported under 3.x in this Docker container.
   - Apache Solr 3.x doesn't run in the foreground in the same way as 4+. You have to use the `command` `java -jar start.jar` inside the directory `/opt/solr/example` to start Solr in the foreground.
 
-## Management with Ansible Container
+## Management with Ansible
 
 ### Prerequisites
 
 Before using this project to build and maintain a Solr images for Docker, you need to have the following installed:
 
   - [Docker Community Edition](https://docs.docker.com/engine/installation/) (for Mac, Windows, or Linux)
-  - [Ansible Container](https://docs.ansible.com/ansible-container/installation.html)
+  - [Ansible](http://docs.ansible.com/ansible/latest/installation_guide/intro_installation.html)
 
 ### Build the image
 
-    ansible-container --var-file vars-7.x.yml build
+First, install Ansible role requirements:
 
-Once the image is built, you can run `docker images` to see the `acsolr-solr` image that was generated.
+    ansible-galaxy install -r requirements.yml
 
-Older Solr versions are also supported—specify the vars file for the version you would like to install to switch to that version of Solr.
+Then, make sure Docker is running, and run the playbook to build the container:
 
-### Run the image as a container
+    ansible-playbook --extra-vars="@vars/7.x.yml" main.yml
 
-    ansible-container --var-file vars-7.x.yml run
+(Substitute whatever supported Solr version you desire in the vars path) Once the image is built, you can run `docker images` to see the `solr` image that was generated.
 
-You should be able to reach the Solr dashboard by accessing [http://localhost:8983/](http://localhost:8983/) in your browser.
-
-(Use `stop` to stop the container, and `destroy` to reset the containers and _all_ images.)
+> Note: If you get an error like `Failed to import docker`, run `pip install docker`.
 
 ### Push the image to Docker Hub
 
@@ -142,14 +140,14 @@ Currently, the process for updating this image on Docker Hub is manual. Eventual
 
   1. Tag the Solr major version:
 
-         docker tag [image id] geerlingguy/solr:7.x # or 6.x, 5.x, 4.x, 3.x...
-         docker tag [image id] geerlingguy/solr:7.1.0 # the specific version
+         docker tag [image id] geerlingguy/solr:7.x # or 6.x, 5.x, etc.
+         docker tag [image id] geerlingguy/solr:7.4.0 # the specific version
 
   1. Push tags to Docker Hub:
 
          docker push geerlingguy/solr:latest # (if this was just tagged)
          docker push geerlingguy/solr:7.x # or 6.x, 5.x, 4.x, 3.x...
-         docker push geerlingguy/solr:7.1.0 # the specific version
+         docker push geerlingguy/solr:7.4.0 # the specific version
 
 ## License
 

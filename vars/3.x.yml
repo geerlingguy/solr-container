@@ -7,4 +7,4 @@ solr_remove_cruft: true
 solr_version: "3.6.2"
 
 container_working_dir: /opt/solr/example
-container_start_command: ["java", "-jar", "start.jar"]
+container_start_command: '["java", "-jar", "start.jar"]'
