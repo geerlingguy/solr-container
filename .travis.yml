@@ -31,6 +31,6 @@ script:
   # Verify the container runs Solr runs inside.
   - docker run -d --name=solr -p 8983:8983 geerlingguy/solr:${exact_version}
   - >
-    docker exec solr ps -ax | grep -q '${ solr_process }'
+    docker exec solr ps -ax | grep -q "${solr_process}"
     && (echo 'solr is running: pass' && exit 0)
     || (echo 'solr is running: fail' && exit 1)
