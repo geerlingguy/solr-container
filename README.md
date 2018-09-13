@@ -22,9 +22,9 @@ Currently maintained versions include:
 
 If you want to use the `geerlingguy/solr` image from Docker Hub, you don't need to install or use this project at all. You can quickly build a Solr container locally with:
 
-    docker run -d --name=solr -p 8983:8983 geerlingguy/solr:latest /opt/solr/bin/solr start -p 8983 -s /var/solr -f -force
+    docker run -d --name=solr -p 8983:8983 geerlingguy/solr:latest /opt/solr/bin/solr start -p 8983 -f -force
 
-(For Solr 4.x, drop the final `-force` argument.)
+(For Solr 4.x and 5.x, drop the final `-force` argument.)
 
 You can also wrap up that configuration in a `Dockerfile` and/or a `docker-compose.yml` file if you want to keep things simple. For example:
 
@@ -40,7 +40,7 @@ You can also wrap up that configuration in a `Dockerfile` and/or a `docker-compo
         restart: always
         # See 'Custom and Persistent Solr cores' for instructions for volumes.
         volumes: []
-        command: ["/opt/solr/bin/solr", "start", "-p", "8983", "-s", "/var/solr", "-f", "-force"]
+        command: ["/opt/solr/bin/solr", "start", "-p", "8983", "-f", "-force"]
 
 Then run:
 
