@@ -3,6 +3,8 @@ language: python
 services: docker
 
 env:
+  - solr_version: 8.x
+    solr_process: solr
   - solr_version: 7.x
     solr_process: solr
   - solr_version: 6.x
@@ -50,7 +52,7 @@ after_success:
       docker push geerlingguy/solr:${solr_version}
 
       # Push latest tag if building latest version.
-      if [[ "$solr_version" == "7.x" ]]; then
+      if [[ "$solr_version" == "8.x" ]]; then
         docker tag geerlingguy/solr:${exact_version} geerlingguy/solr:latest
         docker push geerlingguy/solr:latest
       fi
