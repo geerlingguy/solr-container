@@ -18,13 +18,16 @@ env:
 
 install:
   # Install Ansible.
-  - pip install ansible docker shyaml
+  - pip install ansible ansible-lint docker shyaml
   - export ANSIBLE_FORCE_COLOR=true
 
   # Install role dependencies.
   - ansible-galaxy install -r requirements.yml
 
 script:
+  # Check the playbook's syntax.
+  - ansible-lint
+
   # Build the container.
   - ansible-playbook --extra-vars="@vars/${solr_version}.yml" main.yml
 

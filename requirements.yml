@@ -1,5 +1,5 @@
 ---
 - src: geerlingguy.java
-  version: 1.9.1
+  version: 1.9.6
 - src: geerlingguy.solr
-  version: 4.3.0
+  version: 5.0.0
