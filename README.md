@@ -12,8 +12,8 @@ This project is composed of three main parts:
 
 Currently maintained versions include:
 
-  - `8.x`, `8.4.1`, `latest`: Apache Solr 8.x
-  - `7.x`, `7.7.2`: Apache Solr 7.x
+  - `8.x`, `8.6.0`, `latest`: Apache Solr 8.x
+  - `7.x`, `7.7.3`: Apache Solr 7.x
   - `6.x`, `6.6.6`: Apache Solr 6.x
   - `5.x`, `5.5.5`: Apache Solr 5.x
   - `4.x`, `4.10.4`: Apache Solr 4.x
