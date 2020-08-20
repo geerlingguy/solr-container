@@ -12,6 +12,7 @@
     src: "/root/solr-{{ solr_version }}.tgz"
     dest: "/root"
     copy: no
+    mode: 0644
   when: solr_download_status is changed
 
 - name: Remove part of the installer script that doesn't works inside Docker.
@@ -31,3 +32,4 @@
     regexp: '^proc_version'
     insertbefore: '^if.*proc_version.*Debian.*then$'
     line: 'proc_version="Debian"'
+    mode: 0644
