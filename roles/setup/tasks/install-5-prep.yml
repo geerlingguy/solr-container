@@ -8,10 +8,11 @@
   register: solr_download_status
 
 - name: Expand Solr.
-  unarchive:  # noqa 208
+  unarchive:
     src: "/root/solr-{{ solr_version }}.tgz"
     dest: "/root"
     copy: no
+    mode: 0755
   when: solr_download_status is changed
 
 - name: Remove part of the installer script that doesn't works inside Docker.
@@ -31,4 +32,4 @@
     regexp: '^proc_version'
     insertbefore: '^if.*proc_version.*Debian.*then$'
     line: 'proc_version="Debian"'
-    mode: 0644
+    mode: 0755
