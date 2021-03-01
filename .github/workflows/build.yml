@@ -98,7 +98,7 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      - name: Build and push image.
+      - name: Push image.
         run: |
           # Push $solr_version tag.
           docker push geerlingguy/solr:${{ env.exact_version }}
