@@ -1,6 +1,6 @@
 # Apache Solr Container (Built with Ansible)
 
-[![Build Status](https://travis-ci.org/geerlingguy/solr-container.svg?branch=master)](https://travis-ci.org/geerlingguy/solr-container) [![](https://images.microbadger.com/badges/image/geerlingguy/solr.svg)](https://microbadger.com/images/geerlingguy/solr "Get your own image badge on microbadger.com")
+[![CI](https://github.com/geerlingguy/solr-container/workflows/Build/badge.svg?branch=master&event=push)](https://github.com/geerlingguy/solr-container/actions?query=workflow%3ABuild) [![Docker pulls](https://img.shields.io/docker/pulls/geerlingguy/solr-container)](https://hub.docker.com/r/geerlingguy/solr-container/))
 
 This project is composed of three main parts:
 
