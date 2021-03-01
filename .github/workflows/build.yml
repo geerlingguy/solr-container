@@ -60,6 +60,14 @@ jobs:
   release:
     name: Release
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        solr_version:
+          - '8.x'
+          - '7.x'
+          - '6.x'
+          - '5.x'
+          - '4.x'
     needs: test
     if: github.ref == 'refs/heads/master'
 
