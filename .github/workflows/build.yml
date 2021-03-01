@@ -44,14 +44,15 @@ jobs:
         run: ansible-playbook --extra-vars="@vars/${{ matrix.solr_version }}.yml" main.yml
 
       - name: Get the exact version of Solr used.
-        run: export exact_version=$(cat vars/${solr_version}.yml | shyaml get-value solr_version)
+        run: |
+          echo "exact_version=$(cat vars/${solr_version}.yml | shyaml get-value solr_version)" >> $GITHUB_ENV
 
       - name: Run the container.
-        run: docker run -d --name=solr -p 8983:8983 geerlingguy/solr:${exact_version}
+        run: docker run -d --name=solr -p 8983:8983 geerlingguy/solr:${{ env.exact_version }}
 
       - name: Verify solr is running.
         run: >
-            docker exec solr ps -ax | grep -q "${solr_process}"
+            docker exec solr ps -ax | grep -q "solr"
             && (echo 'solr is running: pass' && exit 0)
             || (echo 'solr is running: fail' && exit 1)
 
