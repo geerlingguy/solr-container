@@ -45,7 +45,7 @@ jobs:
 
       - name: Get the exact version of Solr used.
         run: |
-          echo "exact_version=$(cat vars/${solr_version}.yml | shyaml get-value solr_version)" >> $GITHUB_ENV
+          echo "exact_version=$(cat vars/${{ matrix.solr_version }}.yml | shyaml get-value solr_version)" >> $GITHUB_ENV
 
       - name: Run the container.
         run: docker run -d --name=solr -p 8983:8983 geerlingguy/solr:${{ env.exact_version }}
