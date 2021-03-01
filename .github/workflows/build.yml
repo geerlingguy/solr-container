@@ -1,0 +1,106 @@
+---
+name: Build
+
+on:
+  pull_request:
+  push:
+    branches:
+      - master
+  schedule:
+    - cron: "10 1 * * 0"
+
+env:
+  ANSIBLE_FORCE_COLOR: true
+
+jobs:
+  # Test the images build and work correctly.
+  test:
+    name: Test
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        solr_version:
+          - '8.x'
+          - '7.x'
+          - '6.x'
+          - '5.x'
+          - '4.x'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install prerequisites.
+        run: pip3 install ansible ansible-lint docker shyaml
+
+      - name: Install role dependencies.
+        run: ansible-galaxy install -r requirements.yml
+
+      - name: Build the container.
+        run: ansible-playbook --extra-vars="@vars/${{ matrix.solr_version }}.yml" main.yml
+
+      - name: Get the exact version of Solr used.
+        run: |
+          echo "exact_version=$(cat vars/${{ matrix.solr_version }}.yml | shyaml get-value solr_version)" >> $GITHUB_ENV
+
+      - name: Run the container.
+        run: docker run -d --name=solr -p 8983:8983 geerlingguy/solr:${{ env.exact_version }}
+
+      - name: Verify solr is running.
+        run: >
+            docker exec solr ps -ax | grep -q "solr"
+            && (echo 'solr is running: pass' && exit 0)
+            || (echo 'solr is running: fail' && exit 1)
+
+  # If on master branch, build and release images.
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    needs: test
+    if: github.ref == 'refs/heads/master'
+
+    steps:
+      - uses: actions/checkout@v2
+
+      - name: Set up Python 3.
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.x'
+
+      - name: Install prerequisites.
+        run: pip3 install ansible ansible-lint docker shyaml
+
+      - name: Install role dependencies.
+        run: ansible-galaxy install -r requirements.yml
+
+      - name: Build the container.
+        run: ansible-playbook --extra-vars="@vars/${{ matrix.solr_version }}.yml" main.yml
+
+      - name: Get the exact version of Solr used.
+        run: |
+          echo "exact_version=$(cat vars/${{ matrix.solr_version }}.yml | shyaml get-value solr_version)" >> $GITHUB_ENV
+
+      - name: Login to DockerHub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push image.
+        run: |
+          # Push $solr_version tag.
+          docker push geerlingguy/solr:${{ env.exact_version }}
+
+          # Push $solr_version tag.
+          docker tag geerlingguy/solr:${{ env.exact_version }} geerlingguy/solr:${{ matrix.solr_version }}
+          docker push geerlingguy/solr:${{ matrix.solr_version }}
+
+          # Push latest tag if building latest version.
+          if [[ "${{ matrix.solr_version }}" == "8.x" ]]; then
+            docker tag geerlingguy/solr:${{ env.exact_version }} geerlingguy/solr:latest
+            docker push geerlingguy/solr:latest
+          fi
