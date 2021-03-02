@@ -120,7 +120,7 @@ Then, make sure Docker is running, and run the playbook to build the container:
 
 ### Push the image to Docker Hub
 
-See the `.travis.yml` file in this repository for how it pushes all the tagged images automatically on any commit to the `master` branch.
+See the `.github/workflows/build.yml` file in this repository for how it pushes all the tagged images automatically on any commit to the `master` branch.
 
 ## License
 
