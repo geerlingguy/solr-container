@@ -4,7 +4,7 @@ java_packages:
 
 solr_remove_cruft: true
 
-solr_version: "8.8.1"
+solr_version: "8.9.0"
 
 container_working_dir: /
 container_start_command: '["/opt/solr/bin/solr", "start", "-f", "-force"]'
