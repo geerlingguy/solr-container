@@ -56,8 +56,6 @@
         rm -rf /var/lib/apt/lists/*
       changed_when: true
       delegate_to: '{{ container_name }}'
-      args:
-        warn: no
 
     - name: Commit the container.
       command: >
