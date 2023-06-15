@@ -20,6 +20,7 @@ jobs:
     strategy:
       matrix:
         solr_version:
+          - '9.x'
           - '8.x'
           - '7.x'
           - '6.x'
@@ -63,6 +64,7 @@ jobs:
     strategy:
       matrix:
         solr_version:
+          - '9.x'
           - '8.x'
           - '7.x'
           - '6.x'
@@ -108,7 +110,7 @@ jobs:
           docker push geerlingguy/solr:${{ matrix.solr_version }}
 
           # Push latest tag if building latest version.
-          if [[ "${{ matrix.solr_version }}" == "8.x" ]]; then
+          if [[ "${{ matrix.solr_version }}" == "9.x" ]]; then
             docker tag geerlingguy/solr:${{ env.exact_version }} geerlingguy/solr:latest
             docker push geerlingguy/solr:latest
           fi
