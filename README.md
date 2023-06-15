@@ -15,17 +15,12 @@ Currently maintained versions include:
   - `9.x`, `9.2.1`, `latest`: Apache Solr 9.x
   - `8.x`, `8.11.2`: Apache Solr 8.x
   - `7.x`, `7.7.3`: Apache Solr 7.x
-  - `6.x`, `6.6.6`: Apache Solr 6.x
-  - `5.x`, `5.5.5`: Apache Solr 5.x
-  - `4.x`, `4.10.4`: Apache Solr 4.x
 
 ## Standalone Usage
 
 If you want to use the `geerlingguy/solr` image from Docker Hub, you don't need to install or use this project at all. You can quickly build a Solr container locally with:
 
     docker run -d --name=solr -p 8983:8983 geerlingguy/solr:latest /opt/solr/bin/solr start -p 8983 -f -force
-
-(For Solr 4.x and 5.x, drop the final `-force` argument.)
 
 You can also wrap up that configuration in a `Dockerfile` and/or a `docker-compose.yml` file if you want to keep things simple. For example:
 

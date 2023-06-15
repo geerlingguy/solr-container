@@ -23,9 +23,6 @@ jobs:
           - '9.x'
           - '8.x'
           - '7.x'
-          - '6.x'
-          - '5.x'
-          - '4.x'
 
     steps:
       - uses: actions/checkout@v2
@@ -67,9 +64,6 @@ jobs:
           - '9.x'
           - '8.x'
           - '7.x'
-          - '6.x'
-          - '5.x'
-          - '4.x'
     needs: test
     if: github.ref == 'refs/heads/master'
 
