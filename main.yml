@@ -10,6 +10,10 @@
     image_name: solr
 
   pre_tasks:
+    - name: Extract the major version from solr_version
+      set_fact:
+        solr_major_version: "{{ solr_version.split('.')[0] }}"
+
     - name: Make the latest version of the base image available locally.
       docker_image:
         name: '{{ base_image }}'
@@ -21,6 +25,7 @@
         image: '{{ base_image }}'
         name: '{{ container_name }}'
         command: sleep infinity
+        env_file: 'files/{{ solr_major_version }}.x.env'
 
     - name: Add the newly created container to the inventory.
       add_host:
