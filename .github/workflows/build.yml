@@ -54,6 +54,12 @@ jobs:
             && (echo 'solr is running: pass' && exit 0)
             || (echo 'solr is running: fail' && exit 1)
 
+      - name: Test request to port 8983.
+        run: >
+            curl -f http://localhost:8983/
+            && (echo 'Request to port 8983: pass' && exit 0)
+            || (echo 'Request to port 8983: fail' && exit 1)
+
   # If on master branch, build and release images.
   release:
     name: Release
