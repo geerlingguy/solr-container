@@ -47,12 +47,21 @@ jobs:
 
       - name: Run the container.
         run: docker run -d --name=solr -p 8983:8983 geerlingguy/solr:${{ env.exact_version }}
+      
+      - name: Wait for the container to start
+        run: sleep 10
 
       - name: Verify solr is running.
         run: >
             docker exec solr ps -ax | grep -q "solr"
             && (echo 'solr is running: pass' && exit 0)
             || (echo 'solr is running: fail' && exit 1)
+
+      - name: Test request to port 8983.
+        run: >
+            curl -f http://localhost:8983/
+            && (echo 'Request to port 8983: pass' && exit 0)
+            || (echo 'Request to port 8983: fail' && exit 1)
 
   # If on master branch, build and release images.
   release:
