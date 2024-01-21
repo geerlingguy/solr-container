@@ -12,7 +12,7 @@ This project is composed of three main parts:
 
 Currently maintained versions include:
 
-  - `9.x`, `9.2.1`, `latest`: Apache Solr 9.x
+  - `9.x`, `9.4.1`, `latest`: Apache Solr 9.x
   - `8.x`, `8.11.2`: Apache Solr 8.x
   - `7.x`, `7.7.3`: Apache Solr 7.x
 
