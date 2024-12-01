@@ -47,7 +47,7 @@ jobs:
 
       - name: Run the container.
         run: docker run -d --name=solr -p 8983:8983 geerlingguy/solr:${{ env.exact_version }}
-      
+
       - name: Wait for the container to start
         run: sleep 10
 

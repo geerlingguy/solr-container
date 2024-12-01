@@ -4,7 +4,7 @@ java_packages:
 
 solr_remove_cruft: true
 
-solr_version: "9.4.1"
+solr_version: "9.7.0"
 # TODO: See https://github.com/geerlingguy/ansible-role-solr/issues/132
 solr_cores: ~
 
