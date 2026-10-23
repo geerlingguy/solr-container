@@ -4,7 +4,7 @@
   gather_facts: false
 
   vars:
-    base_image: debian:bookworm
+    base_image: debian:trixie
     container_name: solr_build_container
     image_namespace: geerlingguy
     image_name: solr

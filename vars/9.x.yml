@@ -1,9 +1,10 @@
 ---
 solr_remove_cruft: true
 
-solr_version: "9.7.0"
-# TODO: See https://github.com/geerlingguy/ansible-role-solr/issues/132
-solr_cores: ~
+java_packages:
+  - openjdk-21-jdk-headless
+
+solr_version: "9.11.0"
 
 container_working_dir: /
 container_start_command: '["/opt/solr/bin/solr", "start", "-f", "-force"]'

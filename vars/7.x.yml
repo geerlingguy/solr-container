@@ -1,6 +1,9 @@
 ---
 solr_remove_cruft: true
 
+java_packages:
+  - openjdk-21-jdk-headless
+
 solr_version: "7.7.3"
 
 container_working_dir: /
