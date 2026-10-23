@@ -1,9 +1,14 @@
 ---
 solr_remove_cruft: true
 
-solr_version: "9.7.0"
-# TODO: See https://github.com/geerlingguy/ansible-role-solr/issues/132
-solr_cores: ~
+java_packages:
+  - openjdk-21-jdk-headless
+
+solr_version: "9.11.0"
+
+# Solr 9's init script reports success for 'status' even when Solr isn't
+# running, so 'started' never starts it in a container without systemd.
+solr_service_state: restarted
 
 container_working_dir: /
 container_start_command: '["/opt/solr/bin/solr", "start", "-f", "-force"]'

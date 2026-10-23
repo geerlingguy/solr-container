@@ -12,9 +12,8 @@ This project is composed of three main parts:
 
 Currently maintained versions include:
 
-  - `9.x`, `9.7.0`, `latest`: Apache Solr 9.x
+  - `9.x`, `9.11.0`, `latest`: Apache Solr 9.x
   - `8.x`, `8.11.4`: Apache Solr 8.x
-  - `7.x`, `7.7.3`: Apache Solr 7.x
 
 ## Standalone Usage
 
@@ -108,7 +107,7 @@ First, install Ansible role requirements:
 
 Then, make sure Docker is running, and run the playbook to build the container:
 
-    ansible-playbook --extra-vars="@vars/7.x.yml" main.yml
+    ansible-playbook --extra-vars="@vars/8.x.yml" main.yml
 
 (Substitute whatever supported Solr version you desire in the vars path) Once the image is built, you can run `docker images` to see the `solr` image that was generated.
 
