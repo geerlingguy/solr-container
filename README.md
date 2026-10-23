@@ -14,7 +14,6 @@ Currently maintained versions include:
 
   - `9.x`, `9.11.0`, `latest`: Apache Solr 9.x
   - `8.x`, `8.11.4`: Apache Solr 8.x
-  - `7.x`, `7.7.3`: Apache Solr 7.x
 
 ## Standalone Usage
 
