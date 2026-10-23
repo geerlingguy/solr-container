@@ -6,5 +6,9 @@ java_packages:
 
 solr_version: "9.11.0"
 
+# Solr 9's init script reports success for 'status' even when Solr isn't
+# running, so 'started' never starts it in a container without systemd.
+solr_service_state: restarted
+
 container_working_dir: /
 container_start_command: '["/opt/solr/bin/solr", "start", "-f", "-force"]'
